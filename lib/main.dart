@@ -1,3 +1,4 @@
+import 'package:consult_bitcoin/utils/getBitcoinPrice.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String _price = "R\$ 0,00";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +27,17 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.only(bottom: 16, top: 32),
               child: Text(
-                "R\$ 21.062,59",
+                _price,
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                String price = await getBitcoinPrice();
+                setState(() {
+                  _price = price;
+                });
+              },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.orange,
                 padding: EdgeInsets.only(
